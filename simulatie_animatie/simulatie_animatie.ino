@@ -1,5 +1,5 @@
 // Defineer de ledpins voor de output van de meerkleurenled, deze moeten allemaal op een PWM-poort worden aangesloten.
-#define LEDPIN_RED 3
+#define LEDPIN_RED 5
 #define LEDPIN_BLUE 5
 #define LEDPIN_YELLOW 6
 
