@@ -1,4 +1,4 @@
-//Include de library voor de stappenmotor e het schrijven naar het EEPROM
+//Include de library voor de stappenmotor en het schrijven naar het EEPROM
 #include <Stepper.h>
 #include <EEPROM.h>
 
@@ -30,6 +30,9 @@
 
 //Defineer het adres waar de positie van de wereldbol wordt opgeslagen
 #define EEPROM_ADDRES_WERELDBOL_POSITIE 0
+
+//Defineer een random integer voor de willekeurige locatie
+#define int RandomLocatie
 
 //Maak een object Stepper aan voor de stappenmotor van de wereldbol.
 Stepper wereldbolStappenmotor
@@ -63,6 +66,8 @@ void setup() {
   digitalWrite(LED_IN_1, HIGH);
   digitalWrite(LED_IN_2, HIGH);
   
+  RandomLocatie = random(4)
+  
   Serial.println("Alles ingesteld");
   delay(2000);
 }
@@ -70,17 +75,52 @@ void setup() {
 void loop() {
   // put your main code here, to run repeatedly:
   draaiWereldbol(wereldbolStappenmotor, 700);
+ 
+ if(RandomLocatie == 0)
+ {
+   delay(1500);
+  draaiWereldbol(wereldbolStappenmotor, 500);
   digitalWrite(LED_IN_1, LOW);
   digitalWrite(LED_OUT_1, HIGH);
+  digitalWrite(LED_OUT_2, HIGH);
+  delay(1500);
   digitalWrite(LED_IN_1, HIGH);
+  digitalWrite(LED_IN_2, HIGH);
+ }
+ else if(RandomLocatie == 1)
+ {
+   delay(1500);
+  draaiWereldbol(wereldbolStappenmotor, 1000);
+  digitalWrite(LED_IN_1, LOW);
+  digitalWrite(LED_OUT_3, HIGH);
+  digitalWrite(LED_OUT_4, HIGH);
+  delay(1500);
+  digitalWrite(LED_IN_1, HIGH);
+  digitalWrite(LED_IN_2, HIGH);
+ }
+ else if(RandomLocatie == 2)
+ {
+   delay(1500);
+  draaiWereldbol(wereldbolStappenmotor, 1500);
   digitalWrite(LED_IN_2, LOW);
   digitalWrite(LED_OUT_1, HIGH);
-  delay(500);
+  digitalWrite(LED_OUT_2, HIGH);
+  delay(1500);
+  digitalWrite(LED_IN_1, HIGH);
   digitalWrite(LED_IN_2, HIGH);
-  
-  delay(500);
-  draaiWereldbol(wereldbolStappenmotor, 70);
-  delay(500);
+ }
+ else if(RandomLocatie == 3)
+ {
+   delay(1500);
+  draaiWereldbol(wereldbolStappenmotor, 2000);
+   digitalWrite(LED_IN_2, LOW);
+  digitalWrite(LED_OUT_3, HIGH);
+  digitalWrite(LED_OUT_4, HIGH);
+  delay(1500);
+  digitalWrite(LED_IN_1, HIGH);
+  digitalWrite(LED_IN_2, HIGH);
+ }
+ 
 }
 
 void draaiWereldbol(Stepper& wereldbol, int stapAankomst)
@@ -100,4 +140,5 @@ void draaiWereldbol(Stepper& wereldbol, int stapAankomst)
     wereldbol.step(1);
     EEPROM.write(EEPROM_ADDRES_WERELDBOL_POSITIE, map(positieWereldbol, 0, STAPPEN_PER_ROTATIE - 1, 0, 255));
   }
+  RandomLocatie = random(4)
 }
